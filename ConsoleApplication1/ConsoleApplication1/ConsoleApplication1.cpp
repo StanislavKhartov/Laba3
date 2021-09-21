@@ -88,5 +88,6 @@ int main() {
     printArray(array, n);
     sort(array, array + n);
     printArray(array, +n);
+    delete(array);
     return 0;
 }
