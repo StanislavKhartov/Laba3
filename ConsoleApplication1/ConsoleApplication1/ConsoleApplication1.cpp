@@ -1,11 +1,9 @@
 ﻿#include <iostream>
 #include <algorithm>
 
-#define MAX 100
-
 using namespace std;
 
-void printArray(double array[], int sizeOfArray)
+void printArray(int array[], int sizeOfArray)
 {
     for (int i = 0; i < sizeOfArray; i++)
     {
@@ -14,11 +12,17 @@ void printArray(double array[], int sizeOfArray)
     cout << endl;
 }
 
+int* createArray(int arrayLength)
+{
+    int* arr = (int*)malloc(arrayLength*sizeof(long));
+    return arr;
+}
+
 int main() {
-    cout << "Please enter number of members <" << MAX << endl;
+    cout << "Please enter number of members"<< endl;
     int n = 0;
     cin >> n;
-    double array[MAX];
+    int* array = createArray(n);
     int state = 0;
     cout << "If you want to fill array with random numbers, enter 1, else enter 2\n";
     cin >> state;
@@ -90,5 +94,6 @@ int main() {
     printArray(array, n);
     sort(array, array + n);
     printArray(array, +n);
+    free(array);
     return 0;
 }
