@@ -12,6 +12,35 @@ void printArray(int* array, int sizeOfArray)
     cout << endl;
 }
 
+int fillWithRandomElements (int* array, int sizeOfArray)
+{
+    cout << "Please enter the lower bound and upper bound of random numbers\n";
+    int lower_bound;
+    int upper_bound;
+    cin >> lower_bound;
+    cin >> upper_bound;
+    if (upper_bound < lower_bound)
+    {
+        cout << "wrong data\n";
+        delete[]array;
+        return 1;
+    }
+    for (int i = 0; i < sizeOfArray; i++)
+    {
+        array[i] = (rand() % (upper_bound - lower_bound + 1) + lower_bound);
+    }
+    return 0;
+}
+
+void fillWithConsole(int* array, int size)
+{
+    cout << "PLease enter members of array\n";
+    for (int i = 0; i < size; i++)
+    {
+        cin >> array[i];
+    }
+}
+
 int main() {
     cout << "Please enter number of members" << endl;
     int n = 0;
@@ -23,27 +52,13 @@ int main() {
     switch (state)
     {
     case 1:
-        cout << "Please enter the lower bound and upper bound of random numbers\n";
-        int lower_bound;
-        int upper_bound;
-        cin >> lower_bound;
-        cin >> upper_bound;
-        if (upper_bound < lower_bound)
+        if (fillWithRandomElements(array, n) != 0)
         {
-            cout << "wrong data\n";
             return 1;
-        }
-        for (int i = 0; i < n; i++)
-        {
-            array[i] = (rand() % (upper_bound - lower_bound + 1) + lower_bound);
         }
         break;
     case 2:
-        cout << "PLease enter members of array\n";
-        for (int i = 0; i < n; i++)
-        {
-            cin >> array[i];
-        }
+        fillWithConsole(array, n);
         break;
     default:
         return 1;
