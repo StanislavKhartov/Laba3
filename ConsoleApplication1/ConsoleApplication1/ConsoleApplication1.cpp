@@ -1,11 +1,9 @@
 ﻿#include <iostream>
 #include <algorithm>
 
-#define MAX 100
-
 using namespace std;
 
-void printArray(double array[], int sizeOfArray)
+void printArray(int* array, int sizeOfArray)
 {
     for (int i = 0; i < sizeOfArray; i++)
     {
@@ -14,38 +12,53 @@ void printArray(double array[], int sizeOfArray)
     cout << endl;
 }
 
+int fillWithRandomElements (int* array, int sizeOfArray)
+{
+    cout << "Please enter the lower bound and upper bound of random numbers\n";
+    int lower_bound;
+    int upper_bound;
+    cin >> lower_bound;
+    cin >> upper_bound;
+    if (upper_bound < lower_bound)
+    {
+        cout << "wrong data\n";
+        delete[]array;
+        return 1;
+    }
+    for (int i = 0; i < sizeOfArray; i++)
+    {
+        array[i] = (rand() % (upper_bound - lower_bound + 1) + lower_bound);
+    }
+    return 0;
+}
+
+void fillWithConsole(int* array, int size)
+{
+    cout << "PLease enter members of array\n";
+    for (int i = 0; i < size; i++)
+    {
+        cin >> array[i];
+    }
+}
+
 int main() {
-    cout << "Please enter number of members <" << MAX << endl;
+    cout << "Please enter number of members" << endl;
     int n = 0;
     cin >> n;
-    double array[MAX];
+    int* array = new int[n];
     int state = 0;
     cout << "If you want to fill array with random numbers, enter 1, else enter 2\n";
     cin >> state;
     switch (state)
     {
     case 1:
-        cout << "Please enter the lower bound and upper bound of random numbers\n";
-        int lower_bound;
-        int upper_bound;
-        cin >> lower_bound;
-        cin >> upper_bound;
-        if (upper_bound < lower_bound)
+        if (fillWithRandomElements(array, n) != 0)
         {
-            cout << "wrong data\n";
             return 1;
-        }
-        for (int i = 0; i < n; i++)
-        {
-            array[i] = (rand() % (upper_bound - lower_bound + 1) + lower_bound);
         }
         break;
     case 2:
-        cout << "PLease enter members of array\n";
-        for (int i = 0; i < n; i++)
-        {
-            cin >> array[i];
-        }
+        fillWithConsole(array, n);
         break;
     default:
         return 1;
@@ -90,5 +103,6 @@ int main() {
     printArray(array, n);
     sort(array, array + n);
     printArray(array, +n);
+    delete(array);
     return 0;
 }
